@@ -10,13 +10,19 @@ const y = canvas.height / 2;
 const player = new Player(x, y, 30, "blue");
 player.draw();
 
-window.addEventListener("click", (e) => {
-  const bullet = new Bullet(
-    null,
-    canvas.width / 2,
-    canvas.height / 2,
-    5,
-    "red"
-  );
+const bullet = new Bullet(
+  { x: 1, y: 1 },
+  canvas.width / 2,
+  canvas.height / 2,
+  5,
+  "red"
+);
+
+function animate() {
+  requestAnimationFrame(animate);
   bullet.draw();
-});
+  bullet.update();
+}
+window.addEventListener("click", (e) => {});
+
+animate();
