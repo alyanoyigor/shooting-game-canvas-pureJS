@@ -4,6 +4,7 @@ class Bullet extends Player {
     this.speed = speed;
   }
   update() {
+    this.draw();
     this.x += this.speed.x;
     this.y += this.speed.y;
   }
