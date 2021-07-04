@@ -1,3 +1,11 @@
 body {
   margin: 0;
 }
+.score-text {
+  position: fixed;
+  color: white;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  margin: 0.25rem 0 0 0.5rem;
+  user-select: none;
+}
