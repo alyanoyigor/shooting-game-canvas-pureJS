@@ -35,9 +35,20 @@ function animate() {
   animationId = requestAnimationFrame(animate);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   player.draw();
-  bullets.forEach((bullet) => bullet.update());
+  bullets.forEach((bullet, bulletIndex) => {
+    bullet.update();
+    //remove from edges of screen
+    if (
+      bullet.x + bullet.radius < 0 ||
+      bullet.x - bullet.radius > canvas.width ||
+      bullet.y + bullet.radius < 0 ||
+      bullet.y - bullet.radius > canvas.height
+    ) {
+      setTimeout(() => bullets.splice(bulletIndex, 1), 0);
+    }
+  });
+
   enemies.forEach((enemy, enemyIndex) => {
-    
     enemy.update();
 
     // end game
@@ -58,6 +69,7 @@ function animate() {
   });
 }
 window.addEventListener("click", (e) => {
+  console.log(bullets);
   const angle = Math.atan2(e.clientY - y, e.clientX - x);
   const speed = { x: Math.cos(angle), y: Math.sin(angle) };
   bullets.push(new Bullet(speed, x, y, 5, "red"));
