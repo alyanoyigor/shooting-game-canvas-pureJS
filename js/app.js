@@ -30,13 +30,22 @@ function spawnEnemies() {
   }, 1000);
 }
 
+let animationId;
 function animate() {
-  requestAnimationFrame(animate);
+  animationId = requestAnimationFrame(animate);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   player.draw();
   bullets.forEach((bullet) => bullet.update());
   enemies.forEach((enemy, enemyIndex) => {
+    
     enemy.update();
+
+    // end game
+    const distance = Math.hypot(player.x - enemy.x, player.y - enemy.y);
+    if (distance - player.radius - enemy.radius < 1) {
+      cancelAnimationFrame(animationId);
+    }
+
     bullets.forEach((bullet, bulletIndex) => {
       const distance = Math.hypot(bullet.x - enemy.x, bullet.y - enemy.y);
       if (distance - bullet.radius - enemy.radius < 1) {
