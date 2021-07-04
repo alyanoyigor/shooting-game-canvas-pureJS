@@ -61,11 +61,21 @@ function animate() {
 
     bullets.forEach((bullet, bulletIndex) => {
       const distance = Math.hypot(bullet.x - enemy.x, bullet.y - enemy.y);
+      // when bullet touch enemy
       if (distance - bullet.radius - enemy.radius < 1) {
-        setTimeout(() => {
-          enemies.splice(enemyIndex, 1);
-          bullets.splice(bulletIndex, 1);
-        }, 0);
+        if (enemy.radius - 10 > 8) {
+          gsap.to(enemy, {
+            radius: enemy.radius - 10,
+          });
+          setTimeout(() => {
+            bullets.splice(bulletIndex, 1);
+          }, 0);
+        } else {
+          setTimeout(() => {
+            enemies.splice(enemyIndex, 1);
+            bullets.splice(bulletIndex, 1);
+          }, 0);
+        }
       }
     });
   });
