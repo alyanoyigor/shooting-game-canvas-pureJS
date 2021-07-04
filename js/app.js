@@ -14,11 +14,19 @@ const enemies = [];
 
 function spawnEnemies() {
   setInterval(() => {
-    const enemyX = Math.random() * canvas.width;
-    const enemyY = Math.random() * canvas.height;
+    const radius = Math.random() * 24 + 6;
+    let enemyX;
+    let enemyY;
+    if (Math.random() < 0.5) {
+      enemyX = Math.random() < 0.5 ? 0 - radius : canvas.width + radius;
+      enemyY = Math.random() * canvas.height;
+    } else {
+      enemyX = Math.random() * canvas.width;
+      enemyY = Math.random() < 0.5 ? 0 - radius : canvas.height + radius;
+    }
     const angle = Math.atan2(y - enemyY, x - enemyX);
     const speed = { x: Math.cos(angle), y: Math.sin(angle) };
-    enemies.push(new Enemy(speed, enemyX, enemyY, 30, "green"));
+    enemies.push(new Enemy(speed, enemyX, enemyY, radius, "green"));
   }, 1000);
 }
 
