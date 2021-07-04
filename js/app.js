@@ -7,7 +7,7 @@ canvas.height = innerHeight;
 const x = canvas.width / 2;
 const y = canvas.height / 2;
 
-const player = new Player(x, y, 30, "blue");
+const player = new Player(x, y, 10, "white");
 
 const bullets = [];
 const enemies = [];
@@ -26,14 +26,16 @@ function spawnEnemies() {
     }
     const angle = Math.atan2(y - enemyY, x - enemyX);
     const speed = { x: Math.cos(angle), y: Math.sin(angle) };
-    enemies.push(new Enemy(speed, enemyX, enemyY, radius, "green"));
+    const color = `hsl(${Math.random() * 360}, 50%, 50%)`;
+    enemies.push(new Enemy(speed, enemyX, enemyY, radius, color));
   }, 1000);
 }
 
 let animationId;
 function animate() {
   animationId = requestAnimationFrame(animate);
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
   player.draw();
   bullets.forEach((bullet, bulletIndex) => {
     bullet.update();
@@ -69,10 +71,9 @@ function animate() {
   });
 }
 window.addEventListener("click", (e) => {
-  console.log(bullets);
   const angle = Math.atan2(e.clientY - y, e.clientX - x);
-  const speed = { x: Math.cos(angle), y: Math.sin(angle) };
-  bullets.push(new Bullet(speed, x, y, 5, "red"));
+  const speed = { x: Math.cos(angle) * 4, y: Math.sin(angle) * 4 };
+  bullets.push(new Bullet(speed, x, y, 5, "white"));
 });
 
 animate();
