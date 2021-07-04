@@ -8,7 +8,18 @@
     <title>Document</title>
   </head>
   <body>
-    <div class="score-text"><span>Score: </span><span id="score-element">0</span></div>
+    <div class="score-text">
+      <span>Score: </span><span id="score-element">0</span>
+    </div>
+    <div id="modal-element">
+      <div class="game-table-score">
+        <h1 class="score-number" id="end-score-element">0</h1>
+        <p class="points">Points</p>
+        <div>
+          <button id="start-game-button">Start Game</button>
+        </div>
+      </div>
+    </div>
     <canvas></canvas>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.0/gsap.min.js"

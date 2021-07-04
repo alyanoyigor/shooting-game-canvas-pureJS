@@ -1,5 +1,9 @@
 body {
   margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Helvetica Neue", "Segoe UI", Roboto, Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  background-color: black;
 }
 .score-text {
   position: fixed;
@@ -8,4 +12,45 @@ body {
   line-height: 1.25rem;
   margin: 0.25rem 0 0 0.5rem;
   user-select: none;
+}
+#modal-element {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.game-table-score {
+  text-align: center;
+  background-color: white;
+  max-width: 28rem;
+  width: 100%;
+  padding: 1.5rem;
+}
+.score-number {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  line-height: 1;
+  margin: 0;
+}
+.points {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: rgba(55, 65, 81, 1);
+  margin: 0 0 1rem 0;
+}
+#start-game-button {
+  background-color: rgba(55, 48, 163, 1);
+  color: white;
+  width: 100%;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-radius: 9999px;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Helvetica Neue", "Segoe UI", Roboto, Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  border: none;
 }
