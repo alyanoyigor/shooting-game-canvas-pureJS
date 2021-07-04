@@ -34,8 +34,19 @@ function animate() {
   requestAnimationFrame(animate);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   player.draw();
-  bullets.forEach((b) => b.update());
-  enemies.forEach((e) => e.update());
+  bullets.forEach((bullet) => bullet.update());
+  enemies.forEach((enemy, enemyIndex) => {
+    enemy.update();
+    bullets.forEach((bullet, bulletIndex) => {
+      const distance = Math.hypot(bullet.x - enemy.x, bullet.y - enemy.y);
+      if (distance - bullet.radius - enemy.radius < 1) {
+        setTimeout(() => {
+          enemies.splice(enemyIndex, 1);
+          bullets.splice(bulletIndex, 1);
+        }, 0);
+      }
+    });
+  });
 }
 window.addEventListener("click", (e) => {
   const angle = Math.atan2(e.clientY - y, e.clientX - x);
