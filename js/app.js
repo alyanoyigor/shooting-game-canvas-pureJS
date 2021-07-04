@@ -11,6 +11,7 @@ const player = new Player(x, y, 10, "white");
 
 const bullets = [];
 const enemies = [];
+const particles = [];
 
 function spawnEnemies() {
   setInterval(() => {
@@ -32,11 +33,19 @@ function spawnEnemies() {
 }
 
 let animationId;
+
 function animate() {
   animationId = requestAnimationFrame(animate);
   ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   player.draw();
+  particles.forEach((particle, particleIndex) => {
+    if (particle.alpha <= 0) {
+      particles.splice(particleIndex, 1);
+    } else {
+      particle.update();
+    }
+  });
   bullets.forEach((bullet, bulletIndex) => {
     bullet.update();
     //remove from edges of screen
@@ -63,6 +72,21 @@ function animate() {
       const distance = Math.hypot(bullet.x - enemy.x, bullet.y - enemy.y);
       // when bullet touch enemy
       if (distance - bullet.radius - enemy.radius < 1) {
+        // create explosions
+        for (let i = 0; i < enemy.radius * 2; i++) {
+          particles.push(
+            new Particle(
+              {
+                x: (Math.random() - 0.5) * (Math.random() * 6),
+                y: (Math.random() - 0.5) * (Math.random() * 6),
+              },
+              bullet.x,
+              bullet.y,
+              Math.random() * 2,
+              enemy.color
+            )
+          );
+        }
         if (enemy.radius - 10 > 8) {
           gsap.to(enemy, {
             radius: enemy.radius - 10,
@@ -82,7 +106,7 @@ function animate() {
 }
 window.addEventListener("click", (e) => {
   const angle = Math.atan2(e.clientY - y, e.clientX - x);
-  const speed = { x: Math.cos(angle) * 4, y: Math.sin(angle) * 4 };
+  const speed = { x: Math.cos(angle) * 5, y: Math.sin(angle) * 5 };
   bullets.push(new Bullet(speed, x, y, 5, "white"));
 });
 
